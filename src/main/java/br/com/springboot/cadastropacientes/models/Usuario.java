@@ -49,10 +49,10 @@ public class Usuario {
     private Date usuarioDataCriacao;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "usuario_alteracao")
+    @Column(name = "usuario_data_alteracao")
     @ColumnDefault("current_timestamp")
     @LastModifiedDate
-    private Date usuariodataAlteracao;
+    private Date usuarioDataAlteracao;
 
 
 
