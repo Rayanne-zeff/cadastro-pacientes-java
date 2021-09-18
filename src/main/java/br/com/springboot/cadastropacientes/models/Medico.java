@@ -14,6 +14,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

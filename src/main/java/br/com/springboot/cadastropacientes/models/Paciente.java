@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -15,6 +14,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
 
 @Getter
 @Setter
@@ -32,8 +36,7 @@ public class Paciente {
     private Pessoa pessoa;
 
 
-    @Column(name = "paciente_data_nascimento")
-    @CreatedDate
+    @Column(name = "paciente_data_nascimento", columnDefinition = "date")
     private Date pacienteDataNascimento;
 
 

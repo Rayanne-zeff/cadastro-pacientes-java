@@ -16,6 +16,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,11 +31,11 @@ import java.util.Date;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "pessoa_id", referencedColumnName = "pessoa_id", nullable = false)
     private Pessoa pessoa;
 

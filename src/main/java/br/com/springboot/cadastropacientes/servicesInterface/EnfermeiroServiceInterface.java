@@ -5,6 +5,11 @@ import br.com.springboot.cadastropacientes.repository.EnfermeiroRepository;
 
 import java.util.List;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 public interface EnfermeiroServiceInterface {
 
     public EnfermeiroRepository getEnfermeiroRepository();

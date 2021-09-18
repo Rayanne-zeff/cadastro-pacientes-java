@@ -6,6 +6,11 @@ import br.com.springboot.cadastropacientes.repository.PessoaRepository;
 
 import java.util.List;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 public interface PessoaServiceInterface {
 
     public PessoaRepository getPessoaRepository();

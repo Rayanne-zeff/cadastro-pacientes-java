@@ -17,6 +17,11 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

@@ -9,6 +9,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @Getter
 @Setter
 public class Retorno {

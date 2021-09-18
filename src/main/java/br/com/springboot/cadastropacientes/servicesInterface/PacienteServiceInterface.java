@@ -5,6 +5,11 @@ import br.com.springboot.cadastropacientes.repository.PacienteRepository;
 
 import java.util.List;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 public interface PacienteServiceInterface {
 
     public PacienteRepository getPacienteRepository();

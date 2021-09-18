@@ -13,6 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @ComponentScan
 @EnableTransactionManagement
 @Service
@@ -57,6 +62,7 @@ public class EnfermeiroService implements EnfermeiroServiceInterface {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
             enfermeiro.setEnfermeiroDataAlteracao(dataAtual);
+            this.entityManager.persist(enfermeiro);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();

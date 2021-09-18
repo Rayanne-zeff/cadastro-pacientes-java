@@ -11,8 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
+
 @RestController
-@RequestMapping("/medico")
+@RequestMapping("/api/medico")
 @ComponentScan
 public class MedicoController extends AbstractController {
 

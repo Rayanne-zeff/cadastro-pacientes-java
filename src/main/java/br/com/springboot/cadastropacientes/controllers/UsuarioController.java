@@ -12,8 +12,15 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
+
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/api/usuario")
 @ComponentScan
 public class UsuarioController extends AbstractController {
     
@@ -57,7 +64,7 @@ public class UsuarioController extends AbstractController {
         try {
             objUsuario = usuarioService.save(usuario);
         } catch (RuntimeException ex) {
-            return Retorno.generateResponse("Não foi possível salvar o usuario! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
+            return Retorno.generateResponse("Não foi possível salvar o usuario! Por favor tente novamente. " + ex.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
         return Retorno.generateResponse("Usuario criado com sucesso!", HttpStatus.OK, objUsuario);
     }

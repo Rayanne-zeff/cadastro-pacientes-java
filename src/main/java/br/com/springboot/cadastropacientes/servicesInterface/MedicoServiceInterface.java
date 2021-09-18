@@ -6,6 +6,11 @@ import br.com.springboot.cadastropacientes.repository.MedicoRepository;
 
 import java.util.List;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 public interface MedicoServiceInterface {
     public MedicoRepository getMedicoRepository();
 

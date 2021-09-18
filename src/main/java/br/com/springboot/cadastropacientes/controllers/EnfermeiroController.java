@@ -12,8 +12,13 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+/**
+ * @author : Gloria Rayane
+ * @since : 17/09/2021
+ */
+
 @RestController
-@RequestMapping("/enfermeiro")
+@RequestMapping("/api/enfermeiro")
 @ComponentScan
 public class EnfermeiroController extends AbstractController {
 
