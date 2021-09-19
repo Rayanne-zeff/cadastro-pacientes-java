@@ -30,7 +30,7 @@ public class Medico {
     @Id
     private Long pessoaId;
     @MapsId("pessoa_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "pessoa_id", referencedColumnName = "pessoa_id")
     private Pessoa pessoa;
 

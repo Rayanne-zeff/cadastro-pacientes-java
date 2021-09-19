@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.validation.ValidationException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,10 +29,16 @@ public class PessoaService implements PessoaServiceInterface {
 
     private EntityManager entityManager;
     private PessoaRepository pessoaRepository;
+    private MedicoService medicoService;
+    private PacienteService pacienteService;
+    private EnfermeiroService enfermeiroService;
 
-    public PessoaService(EntityManagerFactory entityManagerFactory, PessoaRepository pessoaRepository) {
+    public PessoaService(EntityManagerFactory entityManagerFactory, PessoaRepository pessoaRepository, MedicoService medicoService, PacienteService pacienteService, EnfermeiroService enfermeiroService) {
         this.entityManager = entityManagerFactory.createEntityManager();;
         this.pessoaRepository = pessoaRepository;
+        this.medicoService = medicoService;
+        this.pacienteService = pacienteService;
+        this.enfermeiroService = enfermeiroService;
     }
 
     public PessoaRepository getPessoaRepository(){
@@ -65,12 +72,25 @@ public class PessoaService implements PessoaServiceInterface {
         return pessoa;
     }
 
-    public Pessoa edit(Pessoa pessoa) throws RuntimeException{
+    public Pessoa edit(Pessoa objPessoa, Pessoa pessoa) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
-            pessoa.setPessoaDataAlteracao(dataAtual);
-            this.entityManager.persist(pessoa);
+            objPessoa.setPessoaDataAlteracao(dataAtual);
+
+            if (pessoa.getPessoaTipo() != null) {
+                objPessoa.setPessoaTipo(pessoa.getPessoaTipo());
+            }
+
+            if (pessoa.getPessoaCpf() != null) {
+                objPessoa.setPessoaCpf(pessoa.getPessoaCpf());
+            }
+
+            if (pessoa.getPessoaName() != null) {
+                objPessoa.setPessoaName(pessoa.getPessoaName());
+            }
+
+            this.entityManager.merge(objPessoa);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();
@@ -82,6 +102,11 @@ public class PessoaService implements PessoaServiceInterface {
     }
 
     public boolean remove(Pessoa pessoa){
+
+        if (medicoService.getMedico(pessoa.getPessoaId()) != null || enfermeiroService.getEnfermeiro(pessoa.getPessoaId()) != null || pacienteService.getPaciente(pessoa.getPessoaId()) != null){
+            throw new ValidationException("Não foi possível remover a pessoa, a mesma possuí vínculo em outras tabelas!");
+        }
+
         try {
             this.entityManager.getTransaction().begin();
             this.entityManager.remove(this.entityManager.merge(pessoa));

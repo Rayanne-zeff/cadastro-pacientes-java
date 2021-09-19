@@ -57,12 +57,29 @@ public class PacienteService  implements PacienteServiceInterface {
         return paciente;
     }
 
-    public Paciente edit(Paciente paciente) throws RuntimeException{
+    public Paciente edit(Paciente objPaciente, Paciente paciente) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
-            paciente.setPacienteDataAlteracao(dataAtual);
-            this.entityManager.persist(paciente);
+            objPaciente.setPacienteDataAlteracao(dataAtual);
+
+            if (paciente.getPacienteUF() != null) {
+                objPaciente.setPacienteUF(paciente.getPacienteUF());
+            }
+
+            if (paciente.getPacienteAltura() != null) {
+                objPaciente.setPacienteAltura(paciente.getPacienteAltura());
+            }
+
+            if (paciente.getPacienteAltura() != null) {
+                objPaciente.setPacienteAltura(paciente.getPacienteAltura());
+            }
+
+            if (paciente.getPacienteDataNascimento() != null) {
+                objPaciente.setPacienteDataNascimento(paciente.getPacienteDataNascimento());
+            }
+
+            this.entityManager.merge(objPaciente);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();

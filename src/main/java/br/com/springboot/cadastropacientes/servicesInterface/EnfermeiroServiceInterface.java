@@ -16,7 +16,7 @@ public interface EnfermeiroServiceInterface {
 
     public Enfermeiro save(Enfermeiro enfermeiro);
 
-    public Enfermeiro edit(Enfermeiro enfermeiro);
+    public Enfermeiro edit(Enfermeiro objEnfermeiro, Enfermeiro enfermeiro);
 
     public boolean remove(Enfermeiro enfermeiro);
 

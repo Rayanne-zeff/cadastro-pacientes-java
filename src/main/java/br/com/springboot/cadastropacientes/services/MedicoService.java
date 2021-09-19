@@ -58,12 +58,17 @@ public class MedicoService implements MedicoServiceInterface {
         return medico;
     }
 
-    public Medico edit(Medico medico) throws RuntimeException{
+    public Medico edit(Medico objMedico, Medico medico) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
-            medico.setMedicoDataAlteracao(dataAtual);
-            this.entityManager.persist(medico);
+            objMedico.setMedicoDataAlteracao(dataAtual);
+
+            if (medico.getMedicoCrm() != null) {
+                objMedico.setMedicoCrm(medico.getMedicoCrm());
+            }
+
+            this.entityManager.merge(objMedico);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();

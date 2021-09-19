@@ -17,7 +17,7 @@ public interface PessoaServiceInterface {
 
     public Pessoa save(Pessoa pessoa);
 
-    public Pessoa edit(Pessoa pessoa);
+    public Pessoa edit(Pessoa objPessoa,Pessoa pessoa);
 
     public boolean remove(Pessoa pessoa);
 

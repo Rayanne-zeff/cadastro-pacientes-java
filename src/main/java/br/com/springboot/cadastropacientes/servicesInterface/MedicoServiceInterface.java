@@ -16,7 +16,7 @@ public interface MedicoServiceInterface {
 
     public Medico save(Medico medico);
 
-    public Medico edit(Medico medico);
+    public Medico edit(Medico objMedico,Medico medico);
 
     public boolean remove(Medico medico);
 

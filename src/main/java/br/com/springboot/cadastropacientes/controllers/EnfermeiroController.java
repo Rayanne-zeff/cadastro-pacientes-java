@@ -76,19 +76,19 @@ public class EnfermeiroController extends AbstractController {
                 return Retorno.generateResponse("Não foi possível encontrar o enfermeiro informado!", HttpStatus.NOT_FOUND, null);
             }
 
-            enfermeiroService.edit(enfermeiro);
+            enfermeiroService.edit(objEnfermeiro, enfermeiro);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar o enfermeiro! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }
         return Retorno.generateResponse("Enfermeiro editado com sucesso!", HttpStatus.OK, enfermeiro);
     }
 
-    @DeleteMapping("/{enfermeiroId}")
-    public ResponseEntity<Object> delete(@PathVariable Long enfermeiroId) throws Exception {
+    @DeleteMapping("/{pessoaId}")
+    public ResponseEntity<Object> delete(@PathVariable Long pessoaId) throws Exception {
         Enfermeiro objEnfermeiro = null;
         try{
 
-            objEnfermeiro = enfermeiroService.getEnfermeiro(enfermeiroId);
+            objEnfermeiro = enfermeiroService.getEnfermeiro(pessoaId);
             if (objEnfermeiro == null) {
                 return Retorno.generateResponse("Não foi possível encontrar o enfermeiro informado!", HttpStatus.NOT_FOUND, null);
             }

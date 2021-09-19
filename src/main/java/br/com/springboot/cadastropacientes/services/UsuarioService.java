@@ -73,12 +73,22 @@ public class UsuarioService implements UsuarioServiceInterface {
         return usuario;
     }
 
-    public Usuario edit(Usuario usuario) throws RuntimeException{
+    public Usuario edit(Usuario objUsuario, Usuario usuario) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
-            usuario.setUsuarioDataAlteracao(dataAtual);
-            this.entityManager.persist(usuario);
+            objUsuario.setUsuarioDataAlteracao(dataAtual);
+
+            if (usuario.getUsuarioLogin() != null) {
+                objUsuario.setUsuarioLogin(usuario.getUsuarioLogin());
+            }
+
+            if (usuario.getUsuarioSenha() != null) {
+                objUsuario.setUsuarioSenha(usuario.getUsuarioSenha());
+            }
+
+
+            this.entityManager.merge(objUsuario);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();

@@ -16,7 +16,7 @@ public interface PacienteServiceInterface {
 
     public Paciente save(Paciente paciente);
 
-    public Paciente edit(Paciente paciente);
+    public Paciente edit(Paciente objPaciente, Paciente paciente);
 
     public boolean remove(Paciente paciente);
 

@@ -77,7 +77,7 @@ public class PessoaController extends AbstractController {
                 return Retorno.generateResponse("Não foi possível encontrar a pessoa informado!", HttpStatus.NOT_FOUND, null);
             }
 
-            pessoaService.edit(pessoa);
+            pessoaService.edit(objPessoa, pessoa);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar a pessoa! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }

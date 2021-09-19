@@ -77,7 +77,7 @@ public class MedicoController extends AbstractController {
                 return Retorno.generateResponse("Não foi possível encontrar o medico informado!", HttpStatus.NOT_FOUND, null);
             }
 
-            medicoService.edit(medico);
+            medicoService.edit(objMedico,medico);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar o medico! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }

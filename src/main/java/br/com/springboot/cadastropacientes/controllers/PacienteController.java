@@ -78,7 +78,7 @@ public class PacienteController extends AbstractController {
                 return Retorno.generateResponse("Não foi possível encontrar o paciente informado!", HttpStatus.NOT_FOUND, null);
             }
 
-            pacienteService.edit(paciente);
+            pacienteService.edit(objPaciente,paciente);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar o paciente! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }

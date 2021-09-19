@@ -78,7 +78,7 @@ public class UsuarioController extends AbstractController {
                 return Retorno.generateResponse("Não foi possível encontrar o usuario informado!", HttpStatus.NOT_FOUND, null);
             }
 
-            usuarioService.edit(usuario);
+            usuarioService.edit(objUsuario, usuario);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar o usuario! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }

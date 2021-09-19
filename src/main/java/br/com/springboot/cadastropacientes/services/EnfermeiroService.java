@@ -57,12 +57,17 @@ public class EnfermeiroService implements EnfermeiroServiceInterface {
         return enfermeiro;
     }
 
-    public Enfermeiro edit(Enfermeiro enfermeiro) throws RuntimeException{
+    public Enfermeiro edit(Enfermeiro objEnfermeiro, Enfermeiro enfermeiro) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
             Date dataAtual = new Date();
-            enfermeiro.setEnfermeiroDataAlteracao(dataAtual);
-            this.entityManager.persist(enfermeiro);
+            objEnfermeiro.setEnfermeiroDataAlteracao(dataAtual);
+
+            if (enfermeiro.getEnfermeiroCre() != null) {
+                objEnfermeiro.setEnfermeiroCre(enfermeiro.getEnfermeiroCre());
+            }
+
+            this.entityManager.merge(objEnfermeiro);
             this.entityManager.flush();
         } catch (Exception ex) {
             this.entityManager.getTransaction().rollback();
