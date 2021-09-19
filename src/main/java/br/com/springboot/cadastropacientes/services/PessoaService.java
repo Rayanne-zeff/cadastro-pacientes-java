@@ -5,6 +5,7 @@ import br.com.springboot.cadastropacientes.models.Pessoa;
 import br.com.springboot.cadastropacientes.models.PessoaTipo;
 import br.com.springboot.cadastropacientes.repository.PessoaRepository;
 import br.com.springboot.cadastropacientes.servicesInterface.PessoaServiceInterface;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -61,6 +62,9 @@ public class PessoaService implements PessoaServiceInterface {
                 pessoa.setPessoaTipo(PessoaTipo.Paciente);
             }
 
+            String pessoaCpf = pessoa.getPessoaCpfBase().replaceAll("[^\\d ]", "");
+            pessoa.setPessoaCpf(this.criptografarCpf(pessoaCpf));
+
             this.entityManager.persist(pessoa);
             this.entityManager.flush();
         } catch (Exception ex) {
@@ -82,8 +86,9 @@ public class PessoaService implements PessoaServiceInterface {
                 objPessoa.setPessoaTipo(pessoa.getPessoaTipo());
             }
 
-            if (pessoa.getPessoaCpf() != null) {
-                objPessoa.setPessoaCpf(pessoa.getPessoaCpf());
+            if (pessoa.getPessoaCpfBase() != null) {
+                String pessoaCpf = pessoa.getPessoaCpfBase().replaceAll("[^\\d ]", "");
+                objPessoa.setPessoaCpf(this.criptografarCpf(pessoaCpf));
             }
 
             if (pessoa.getPessoaName() != null) {
@@ -98,7 +103,7 @@ public class PessoaService implements PessoaServiceInterface {
         }
         this.entityManager.getTransaction().commit();
 
-        return pessoa;
+        return objPessoa;
     }
 
     public boolean remove(Pessoa pessoa){
@@ -118,5 +123,21 @@ public class PessoaService implements PessoaServiceInterface {
         this.entityManager.getTransaction().commit();
 
         return true;
+    }
+
+    private String criptografarCpf(String pessoaCpf) {
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
+        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
+
+        return encryptor.encrypt(pessoaCpf.replaceAll("[^\\d ]", ""));
+    }
+
+    public String descriptografarCpf(String pessoaCpf) {
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
+        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
+
+        return encryptor.decrypt(pessoaCpf);
     }
 }

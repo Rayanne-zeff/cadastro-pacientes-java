@@ -6,12 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
-import org.hibernate.validator.constraints.br.CPF;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -42,8 +41,7 @@ public class Pessoa implements Serializable{
     @NotBlank(message = "O nome é obrigatório!")
     private String pessoaName;
 
-    @Column(name = "pessoa_cpf",unique = true, length = 20, nullable = false)
-    @CPF(message = "Informe um CPF válido")
+    @Column(name = "pessoa_cpf",unique = true, length = 255, nullable = false)
     @NotBlank(message = "O CPF é obrigatório!")
     private String pessoaCpf;
 
@@ -65,7 +63,19 @@ public class Pessoa implements Serializable{
     @LastModifiedDate
     private Date pessoaDataAlteracao;
 
-    public void setPessoaCpf(String pessoaCpf) {
-        this.pessoaCpf = pessoaCpf.replaceAll("[^\\d ]", "");
+
+    public String getPessoaCpf() {
+        try {
+            StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+            encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
+            encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
+            return encryptor.decrypt(this.pessoaCpf);
+        } catch (RuntimeException exception) {
+            return this.pessoaCpf;
+        }
+    }
+
+    public String getPessoaCpfBase() {
+        return this.pessoaCpf;
     }
 }
