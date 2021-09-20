@@ -488,7 +488,7 @@ spring-boot:run
 
 ## Contato em caso de dúvidas:
 
-<text> Em caso de dúvida para utilizar ou configurar a Api pode estar entrando em contato por e-mail e pelo whastapp, que assim que possível eu esclareço as dúvidas.
+<text> Em caso de dúvida para utilizar ou configurar a API pode estar entrando em contato por e-mail, que assim que possível eu esclareço as dúvidas.
 </text>
 
   ```
