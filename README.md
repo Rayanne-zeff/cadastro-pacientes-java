@@ -3,40 +3,7 @@
 Foi desenvolvida uma REST API de um sistema para o cadastro de pacientes para uma clínica, onde conterá o cadastro de pacientes, médicos e enfermeiros.
 
 
-## Tecnologias utilizadas
-```
-Spring Boot
-Spring Framework
-Spring JPA
-Spring Security
-Spring Security Oauth2
-Lombok
-PostgreSQL
-```
-
-## Instalação
-```
-mvn install
-```
-
-## Base de dados
-#### Para importar a base de dados com dados basta utilizar o arquivo abaixo do diretório:
-```
-src/main/resources/database/cadastro_pacientes.sql
-```
-
-## Executando
-```
-spring-boot:run
-```
-
-
-
-
-
-<h1> Cadastro de Pacientes </h1>
-
-## Tecnologias Usadas:
+## Tecnologias Utilizadas:
 
 <table>
   <tr>
@@ -68,6 +35,24 @@ spring-boot:run
 7) Heroku
 8) Para realizar os testes de get, post, pull e delete, foi utilizado o Postman para fazer as chamadas.
 9) Nome da base de dados: cadastro_pacientes
+
+
+
+## Instalação
+```
+mvn install
+```
+
+## Base de dados
+#### Para importar a base de dados com dados basta utilizar o arquivo abaixo do diretório:
+```
+src/main/resources/database/cadastro_pacientes.sql
+```
+
+## Executando
+```
+spring-boot:run
+```
 
 
 ## Urls utilizadas para testar a API:
