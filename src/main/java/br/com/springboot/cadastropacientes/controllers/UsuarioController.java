@@ -14,6 +14,7 @@ import java.util.List;
 
 
 /**
+ * Controlador responsável por gerenciar as informações de usuários
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -30,6 +31,10 @@ public class UsuarioController extends AbstractController {
         this.usuarioService = usuarioService;
     }
 
+    /**
+     * Nesta função irá retornar todos os usuários existentes na base de dados
+     * @return ResponseEntity<Object>
+     */
     @GetMapping("")
     public ResponseEntity<Object> getUsuario(){
         List<Usuario> usuarios = null;
@@ -42,6 +47,11 @@ public class UsuarioController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o usuario", HttpStatus.OK, usuarios);
     }
 
+    /**
+     * Nesta função irá retornar os dados de um usuário existente na base de dados
+     * @return ResponseEntity<Object>
+     * @param Long usuarioId
+     */
     @GetMapping("/{usuarioId}")
     public ResponseEntity<Object>  getUsuario(@PathVariable Long usuarioId) {
         Usuario objUsuario = null;
@@ -58,6 +68,11 @@ public class UsuarioController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o usuario", HttpStatus.OK, objUsuario);
     }
 
+    /**
+     * Está função é responsável por criar o registro de um usuário
+     * @param Usuario usuario
+     * @return ResponseEntity<Object>
+     */
     @PostMapping("")
     public ResponseEntity<Object>  create(@Valid @RequestBody Usuario usuario) {
         Usuario objUsuario = null;
@@ -69,6 +84,11 @@ public class UsuarioController extends AbstractController {
         return Retorno.generateResponse("Usuario criado com sucesso!", HttpStatus.OK, objUsuario);
     }
 
+    /**
+     * Está função é responsável por editar o registro de um usuário
+     * @param Usuario usuario
+     * @return ResponseEntity<Object>
+     */
     @PutMapping("")
     public ResponseEntity<Object>  update(@Valid @RequestBody Usuario usuario){
         Usuario objUsuario = null;
@@ -85,6 +105,11 @@ public class UsuarioController extends AbstractController {
         return Retorno.generateResponse("Usuario editado com sucesso!", HttpStatus.OK, usuario);
     }
 
+    /**
+     * Está função é responsável por remover o registro de um usuário
+     * @param Long pessoaId
+     * @return ResponseEntity<Object>
+     */
     @DeleteMapping("/{usuarioId}")
     public ResponseEntity<Object> delete(@PathVariable Long usuarioId) throws Exception {
         Usuario objUsuario = null;

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Classe responsável por formatar o retorno das informações nas requisições
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */

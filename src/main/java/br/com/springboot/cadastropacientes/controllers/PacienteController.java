@@ -14,6 +14,7 @@ import java.util.List;
 
 
 /**
+ * Controlador responsável por gerenciar as informações de pacientes
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -30,6 +31,10 @@ public class PacienteController extends AbstractController {
         this.pacienteService = pacienteService;
     }
 
+    /**
+     * Nesta função irá retornar todos os pacientes existentes na base de dados
+     * @return ResponseEntity<Object>
+     */
     @GetMapping("")
     public ResponseEntity<Object> getPaciente(){
         List<Paciente> pacientes = null;
@@ -42,6 +47,11 @@ public class PacienteController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o paciente", HttpStatus.OK, pacientes);
     }
 
+    /**
+     * Nesta função irá retornar os dados de um paciente existente na base de dados
+     * @return ResponseEntity<Object>
+     * @param Long pacienteId
+     */
     @GetMapping("/{pacienteId}")
     public ResponseEntity<Object>  getPaciente(@PathVariable Long pacienteId) {
         Paciente objPaciente = null;
@@ -58,6 +68,11 @@ public class PacienteController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o paciente", HttpStatus.OK, objPaciente);
     }
 
+    /**
+     * Está função é responsável por criar o registro de um paciente
+     * @param Paciente paciente
+     * @return ResponseEntity<Object>
+     */
     @PostMapping("")
     public ResponseEntity<Object>  create(@Valid @RequestBody Paciente paciente) {
         Paciente objPaciente = null;
@@ -69,6 +84,11 @@ public class PacienteController extends AbstractController {
         return Retorno.generateResponse("Paciente criado com sucesso!", HttpStatus.OK, objPaciente);
     }
 
+    /**
+     * Está função é responsável por editar o registro de um paciente
+     * @param Paciente paciente
+     * @return ResponseEntity<Object>
+     */
     @PutMapping("")
     public ResponseEntity<Object>  update(@Valid @RequestBody Paciente paciente){
         Paciente objPaciente = null;
@@ -85,6 +105,11 @@ public class PacienteController extends AbstractController {
         return Retorno.generateResponse("Paciente editado com sucesso!", HttpStatus.OK, paciente);
     }
 
+    /**
+     * Está função é responsável por remover o registro de um paciente
+     * @param Long pacienteId
+     * @return ResponseEntity<Object>
+     */
     @DeleteMapping("/{pacienteId}")
     public ResponseEntity<Object> delete(@PathVariable Long pacienteId) throws Exception {
         Paciente objPaciente = null;

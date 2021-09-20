@@ -33,8 +33,7 @@ import java.util.Date;
 public class Pessoa implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pessoa_id", nullable = false)
     private Long pessoaId;
 

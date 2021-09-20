@@ -14,7 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -43,26 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.httpBasic()
-//                .and()
-//                .authorizeRequests()
-////                .antMatchers("/h2-console/**").permitAll()
-////                .antMatchers("/").permitAll()
-////                .antMatchers("/books").hasRole("USER")
-////                .antMatchers("/books2").hasRole("ADMIN")
-//                .anyRequest().permitAll()
-//                .and()
-//                .csrf().disable()
-//                .headers().frameOptions().disable();
-
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/enfermeiro").hasRole("MEDICO")
                 .antMatchers(HttpMethod.GET, "/api/paciente").hasRole("MEDICO")
                 .antMatchers(HttpMethod.GET, "/api/paciente").hasRole("ENFERMEIRO")
-                //.anyRequest().authenticated()
                 .anyRequest().denyAll()
-//                .and().formLogin().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
@@ -76,6 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // TODO Auto-generated method stub
-        //super.configure(web);
+        super.configure(web);
     }
 }

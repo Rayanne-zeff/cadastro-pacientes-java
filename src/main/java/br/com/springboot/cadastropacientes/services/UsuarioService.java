@@ -2,9 +2,7 @@ package br.com.springboot.cadastropacientes.services;
 
 
 import br.com.springboot.cadastropacientes.models.Pessoa;
-import br.com.springboot.cadastropacientes.models.PessoaTipo;
 import br.com.springboot.cadastropacientes.models.Usuario;
-import br.com.springboot.cadastropacientes.repository.PessoaRepository;
 import br.com.springboot.cadastropacientes.repository.UsuarioRepository;
 import br.com.springboot.cadastropacientes.servicesInterface.PessoaServiceInterface;
 import br.com.springboot.cadastropacientes.servicesInterface.UsuarioServiceInterface;
@@ -21,6 +19,7 @@ import java.util.List;
 
 
 /**
+ * Serviço responsável por gerenciar as informações de usuários
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -34,24 +33,48 @@ public class UsuarioService implements UsuarioServiceInterface {
     private UsuarioRepository usuarioRepository;
     private PessoaServiceInterface pessoaService;
 
+    /**
+     * Construtor da classe
+     * @param EntityManagerFactory entityManagerFactory
+     * @param UsuarioRepository usuarioRepository
+     * @param PessoaServiceInterface pessoaService
+     */
     public UsuarioService(EntityManagerFactory entityManagerFactory, UsuarioRepository usuarioRepository, PessoaServiceInterface pessoaService) {
         this.entityManager = entityManagerFactory.createEntityManager();;
         this.usuarioRepository = usuarioRepository;
         this.pessoaService = pessoaService;
     }
 
+    /**
+     * Retornar o repositório
+     * @return UsuarioRepository
+     */
     public UsuarioRepository getUsuarioRepository(){
         return this.usuarioRepository;
     }
 
+    /**
+     * Retornar todos registros
+     * @return List<Usuario>
+     */
     public List<Usuario> getAll(){
         return this.getUsuarioRepository().findAll();
     }
 
+    /**
+     * Retornar apenas um registro
+     * @param Long pessoaId
+     * @return Usuario
+     */
     public Usuario getUsuario(Long pessoaId){
         return this.getUsuarioRepository().findById(pessoaId).orElse(null);
     }
 
+    /**
+     * Função responsável por salvar um registro
+     * @param Usuario enfermeiro
+     * @return Usuario
+     */
     public Usuario save(Usuario usuario) throws RuntimeException {
         try {
             Pessoa pessoa = pessoaService.getPessoa(usuario.getPessoa().getPessoaId());
@@ -76,6 +99,12 @@ public class UsuarioService implements UsuarioServiceInterface {
         return usuario;
     }
 
+    /**
+     * Função responsável por editar um registro
+     * @param Usuario objEnfermeiro
+     * @param Usuario enfermeiro
+     * @return Usuario
+     */
     public Usuario edit(Usuario objUsuario, Usuario usuario) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
@@ -102,6 +131,11 @@ public class UsuarioService implements UsuarioServiceInterface {
         return usuario;
     }
 
+    /**
+     * Função responsável por remover um registro
+     * @param Usuario enfermeiro
+     * @return boolean
+     */
     public boolean remove(Usuario usuario){
         try {
             this.entityManager.getTransaction().begin();

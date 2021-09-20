@@ -13,6 +13,7 @@ import java.util.List;
 
 
 /**
+ * Controlador responsável por gerenciar as informações de pessoas
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -29,6 +30,10 @@ public class PessoaController extends AbstractController {
         this.pessoaService = pessoaService;
     }
 
+    /**
+     * Nesta função irá retornar todos as pessoas existentes na base de dados
+     * @return ResponseEntity<Object>
+     */
     @GetMapping("")
     public ResponseEntity<Object> getPessoa(){
         List<Pessoa> pessoas = null;
@@ -41,6 +46,11 @@ public class PessoaController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar a pessoa", HttpStatus.OK, pessoas);
     }
 
+    /**
+     * Nesta função irá retornar os dados de uma pessoa existente na base de dados
+     * @return ResponseEntity<Object>
+     * @param Long pessoaId
+     */
     @GetMapping("/{pessoaId}")
     public ResponseEntity<Object>  getPessoa(@PathVariable Long pessoaId) {
         Pessoa objPessoa = null;
@@ -48,7 +58,7 @@ public class PessoaController extends AbstractController {
             objPessoa = pessoaService.getPessoa(pessoaId);
 
             if (objPessoa == null) {
-                return Retorno.generateResponse("Não foi possível encontrar a pessoa informado!", HttpStatus.NOT_FOUND, null);
+                return Retorno.generateResponse("Não foi possível encontrar a pessoa informada!", HttpStatus.NOT_FOUND, null);
             }
 
         }catch (RuntimeException ex){
@@ -57,6 +67,11 @@ public class PessoaController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar a pessoa", HttpStatus.OK, objPessoa);
     }
 
+    /**
+     * Está função é responsável por criar o registro de uma pessoa
+     * @param Pessoa pessoa
+     * @return ResponseEntity<Object>
+     */
     @PostMapping("")
     public ResponseEntity<Object>  create(@Valid @RequestBody Pessoa pessoa) {
         Pessoa objPessoa = null;
@@ -68,13 +83,18 @@ public class PessoaController extends AbstractController {
         return Retorno.generateResponse("Pessoa criada com sucesso!", HttpStatus.OK, objPessoa);
     }
 
+    /**
+     * Está função é responsável por editar o registro de uma pessoa
+     * @param Pessoa pessoa
+     * @return ResponseEntity<Object>
+     */
     @PutMapping("")
     public ResponseEntity<Object>  update(@Valid @RequestBody Pessoa pessoa){
         Pessoa objPessoa = null;
         try{
             objPessoa = pessoaService.getPessoa(pessoa.getPessoaId());
             if (objPessoa == null) {
-                return Retorno.generateResponse("Não foi possível encontrar a pessoa informado!", HttpStatus.NOT_FOUND, null);
+                return Retorno.generateResponse("Não foi possível encontrar a pessoa informada!", HttpStatus.NOT_FOUND, null);
             }
 
             pessoaService.edit(objPessoa, pessoa);
@@ -84,6 +104,11 @@ public class PessoaController extends AbstractController {
         return Retorno.generateResponse("Pessoa editada com sucesso!", HttpStatus.OK, pessoa);
     }
 
+    /**
+     * Está função é responsável por remover o registro de uma pessoa
+     * @param Long pessoaId
+     * @return ResponseEntity<Object>
+     */
     @DeleteMapping("/{pessoaId}")
     public ResponseEntity<Object> delete(@PathVariable Long pessoaId) throws Exception {
         Pessoa objPessoa = null;
@@ -91,7 +116,7 @@ public class PessoaController extends AbstractController {
 
             objPessoa = pessoaService.getPessoa(pessoaId);
             if (objPessoa == null) {
-                return Retorno.generateResponse("Não foi possível encontrar a pessoa informado!", HttpStatus.NOT_FOUND, null);
+                return Retorno.generateResponse("Não foi possível encontrar a pessoa informada!", HttpStatus.NOT_FOUND, null);
             }
 
             pessoaService.remove(objPessoa);

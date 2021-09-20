@@ -14,6 +14,7 @@ import java.util.List;
 
 
 /**
+ * Serviço responsável por gerenciar as informações de enfermeiros
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -26,23 +27,46 @@ public class EnfermeiroService implements EnfermeiroServiceInterface {
     private EntityManager entityManager;
     private EnfermeiroRepository  enfermeiroRepository;
 
+    /**
+     * Construtor da classe
+     * @param EntityManagerFactory entityManagerFactory
+     * @param EnfermeiroRepository enfermeiroRepository
+     */
     public EnfermeiroService(EntityManagerFactory entityManagerFactory, EnfermeiroRepository enfermeiroRepository) {
         this.entityManager = entityManagerFactory.createEntityManager();;
         this.enfermeiroRepository = enfermeiroRepository;
     }
 
+    /**
+     * Retornar o repositório
+     * @return EnfermeiroRepository
+     */
     public EnfermeiroRepository getEnfermeiroRepository(){
         return this.enfermeiroRepository;
     }
 
+    /**
+     * Retornar todos registros
+     * @return List<Enfermeiro>
+     */
     public List<Enfermeiro> getAll(){
         return this.getEnfermeiroRepository().findAll();
     }
 
+    /**
+     * Retornar apenas um registro
+     * @param Long pessoaId
+     * @return Enfermeiro
+     */
     public Enfermeiro getEnfermeiro(Long pessoaId){
         return this.getEnfermeiroRepository().findById(pessoaId).orElse(null);
     }
 
+    /**
+     * Função responsável por salvar um registro
+     * @param Enfermeiro enfermeiro
+     * @return Enfermeiro
+     */
     public Enfermeiro save(Enfermeiro enfermeiro) throws RuntimeException {
         try {
             this.entityManager.getTransaction().begin();
@@ -57,6 +81,12 @@ public class EnfermeiroService implements EnfermeiroServiceInterface {
         return enfermeiro;
     }
 
+    /**
+     * Função responsável por editar um registro
+     * @param Enfermeiro objEnfermeiro
+     * @param Enfermeiro enfermeiro
+     * @return Enfermeiro
+     */
     public Enfermeiro edit(Enfermeiro objEnfermeiro, Enfermeiro enfermeiro) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
@@ -78,6 +108,11 @@ public class EnfermeiroService implements EnfermeiroServiceInterface {
         return enfermeiro;
     }
 
+    /**
+     * Função responsável por remover um registro
+     * @param Enfermeiro enfermeiro
+     * @return boolean
+     */
     public boolean remove(Enfermeiro enfermeiro){
         try {
             this.entityManager.getTransaction().begin();

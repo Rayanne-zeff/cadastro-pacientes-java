@@ -13,6 +13,7 @@ import java.util.List;
 
 
 /**
+ * Controlador responsável por gerenciar as informações de enfermeiros
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -28,6 +29,10 @@ public class EnfermeiroController extends AbstractController {
         this.enfermeiroService = enfermeiroService;
     }
 
+    /**
+     * Nesta função irá retornar todos os enfermeiros existentes na base de dados
+     * @return ResponseEntity<Object>
+     */
     @GetMapping("")
     public ResponseEntity<Object> getEnfermeiro(){
         List<Enfermeiro> enfermeiros = null;
@@ -40,6 +45,11 @@ public class EnfermeiroController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o enfermeiro", HttpStatus.OK, enfermeiros);
     }
 
+    /**
+     * Nesta função irá retornar os dados de um enfermeiro existente na base de dados
+     * @return ResponseEntity<Object>
+     * @param Long enfermeiroId
+     */
     @GetMapping("/{enfermeiroId}")
     public ResponseEntity<Object>  getEnfermeiro(@PathVariable Long enfermeiroId) {
         Enfermeiro objEnfermeiro = null;
@@ -56,6 +66,11 @@ public class EnfermeiroController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o enfermeiro", HttpStatus.OK, objEnfermeiro);
     }
 
+    /**
+     * Está função é responsável por criar o registro de um enfermeiro
+     * @param Enfermeiro enfermeiro
+     * @return ResponseEntity<Object>
+     */
     @PostMapping("")
     public ResponseEntity<Object>  create(@Valid @RequestBody Enfermeiro enfermeiro) {
         Enfermeiro objEnfermeiro = null;
@@ -67,6 +82,11 @@ public class EnfermeiroController extends AbstractController {
         return Retorno.generateResponse("Enfermeiro criado com sucesso!", HttpStatus.OK, objEnfermeiro);
     }
 
+    /**
+     * Está função é responsável por editar o registro de um enfermeiro
+     * @param Enfermeiro enfermeiro
+     * @return ResponseEntity<Object>
+     */
     @PutMapping("")
     public ResponseEntity<Object>  update(@Valid @RequestBody Enfermeiro enfermeiro){
         Enfermeiro objEnfermeiro = null;
@@ -83,6 +103,11 @@ public class EnfermeiroController extends AbstractController {
         return Retorno.generateResponse("Enfermeiro editado com sucesso!", HttpStatus.OK, enfermeiro);
     }
 
+    /**
+     * Está função é responsável por remover o registro de um enfermeiro
+     * @param Long pessoaId
+     * @return ResponseEntity<Object>
+     */
     @DeleteMapping("/{pessoaId}")
     public ResponseEntity<Object> delete(@PathVariable Long pessoaId) throws Exception {
         Enfermeiro objEnfermeiro = null;
@@ -96,7 +121,6 @@ public class EnfermeiroController extends AbstractController {
             enfermeiroService.remove(objEnfermeiro);
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível remover o enfermeiro! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
-
         }
 
         return Retorno.generateResponse("Enfermeiro removido com sucesso!", HttpStatus.OK, objEnfermeiro);

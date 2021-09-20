@@ -12,5 +12,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EnfermeiroRepository extends JpaRepository<Enfermeiro, Long> {
-
 }

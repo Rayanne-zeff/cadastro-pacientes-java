@@ -14,6 +14,7 @@ import java.util.List;
 
 
 /**
+ * Serviço responsável por gerenciar as informações de médicos
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -27,23 +28,46 @@ public class MedicoService implements MedicoServiceInterface {
     private EntityManager entityManager;
     private MedicoRepository medicoRepository;
 
+    /**
+     * Construtor da classe
+     * @param EntityManagerFactory entityManagerFactory
+     * @param MedicoRepository enfermeiroRepository
+     */
     public MedicoService(EntityManagerFactory entityManagerFactory, MedicoRepository medicoRepository) {
         this.entityManager = entityManagerFactory.createEntityManager();;
         this.medicoRepository = medicoRepository;
     }
 
+    /**
+     * Retornar o repositório
+     * @return MedicoRepository
+     */
     public MedicoRepository getMedicoRepository(){
         return this.medicoRepository;
     }
 
+    /**
+     * Retornar todos registros
+     * @return List<Medico>
+     */
     public List<Medico> getAll(){
         return this.getMedicoRepository().findAll();
     }
 
+    /**
+     * Retornar apenas um registro
+     * @param Long pessoaId
+     * @return Medico
+     */
     public Medico getMedico(Long pessoaId){
         return this.getMedicoRepository().findById(pessoaId).orElse(null);
     }
 
+    /**
+     * Função responsável por salvar um registro
+     * @param Medico enfermeiro
+     * @return Medico
+     */
     public Medico save(Medico medico) throws RuntimeException {
         try {
             this.entityManager.getTransaction().begin();
@@ -58,6 +82,12 @@ public class MedicoService implements MedicoServiceInterface {
         return medico;
     }
 
+    /**
+     * Função responsável por editar um registro
+     * @param Medico objEnfermeiro
+     * @param Medico enfermeiro
+     * @return Medico
+     */
     public Medico edit(Medico objMedico, Medico medico) throws RuntimeException{
         try {
             this.entityManager.getTransaction().begin();
@@ -79,6 +109,11 @@ public class MedicoService implements MedicoServiceInterface {
         return medico;
     }
 
+    /**
+     * Função responsável por remover um registro
+     * @param Medico enfermeiro
+     * @return boolean
+     */
     public boolean remove(Medico medico){
         try {
             this.entityManager.getTransaction().begin();

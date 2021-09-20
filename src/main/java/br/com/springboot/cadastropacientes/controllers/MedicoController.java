@@ -13,6 +13,7 @@ import java.util.List;
 
 
 /**
+ * Controlador responsável por gerenciar as informações de médicos
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
@@ -29,6 +30,10 @@ public class MedicoController extends AbstractController {
         this.medicoService = medicoService;
     }
 
+    /**
+     * Nesta função irá retornar todos os médicos existentes na base de dados
+     * @return ResponseEntity<Object>
+     */
     @GetMapping("")
     public ResponseEntity<Object> getMedico(){
         List<Medico> medicos = null;
@@ -41,6 +46,11 @@ public class MedicoController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o medico", HttpStatus.OK, medicos);
     }
 
+    /**
+     * Nesta função irá retornar os dados de um médico existente na base de dados
+     * @return ResponseEntity<Object>
+     * @param Long medicoId
+     */
     @GetMapping("/{medicoId}")
     public ResponseEntity<Object>  getMedico(@PathVariable Long medicoId) {
         Medico objMedico = null;
@@ -57,6 +67,11 @@ public class MedicoController extends AbstractController {
         return Retorno.generateResponse("Sucesso ao buscar o medico", HttpStatus.OK, objMedico);
     }
 
+    /**
+     * Está função é responsável por criar o registro de um médico
+     * @param Medico medico
+     * @return ResponseEntity<Object>
+     */
     @PostMapping("")
     public ResponseEntity<Object>  create(@Valid @RequestBody Medico medico) {
         Medico objMedico = null;
@@ -68,6 +83,11 @@ public class MedicoController extends AbstractController {
         return Retorno.generateResponse("Medico criado com sucesso!", HttpStatus.OK, objMedico);
     }
 
+    /**
+     * Está função é responsável por editar o registro de um médico
+     * @param Medico medico
+     * @return ResponseEntity<Object>
+     */
     @PutMapping("")
     public ResponseEntity<Object>  update(@Valid @RequestBody Medico medico){
         Medico objMedico = null;
@@ -84,6 +104,11 @@ public class MedicoController extends AbstractController {
         return Retorno.generateResponse("Medico editado com sucesso!", HttpStatus.OK, medico);
     }
 
+    /**
+     * Está função é responsável por remover o registro de um médico
+     * @param Long pessoaId
+     * @return ResponseEntity<Object>
+     */
     @DeleteMapping("/{medicoId}")
     public ResponseEntity<Object> delete(@PathVariable Long medicoId) throws Exception {
         Medico objMedico = null;
