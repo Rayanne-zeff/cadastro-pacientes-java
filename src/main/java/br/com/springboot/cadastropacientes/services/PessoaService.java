@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.ValidationException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -62,8 +64,15 @@ public class PessoaService implements PessoaServiceInterface {
                 pessoa.setPessoaTipo(PessoaTipo.Paciente);
             }
 
-            String pessoaCpf = pessoa.getPessoaCpfBase().replaceAll("[^\\d ]", "");
+            String pessoaCpf = pessoa.getPessoaCpf().replaceAll("[^\\d ]", "");
             pessoa.setPessoaCpf(this.criptografarCpf(pessoaCpf));
+
+            //Validar se já existem pessoas com o mesmo cpf
+            Pessoa pessoaEncontrada = pessoaRepository.findByPessoaCpf(pessoa.getPessoaCpf());
+            if (pessoaEncontrada != null) {
+                throw new ValidationException("O cpf informado já existe!");
+            }
+
 
             this.entityManager.persist(pessoa);
             this.entityManager.flush();
@@ -86,9 +95,16 @@ public class PessoaService implements PessoaServiceInterface {
                 objPessoa.setPessoaTipo(pessoa.getPessoaTipo());
             }
 
-            if (pessoa.getPessoaCpfBase() != null) {
-                String pessoaCpf = pessoa.getPessoaCpfBase().replaceAll("[^\\d ]", "");
+            if (pessoa.getPessoaCpf() != null) {
+                String pessoaCpf = pessoa.getPessoaCpf().replaceAll("[^\\d ]", "");
                 objPessoa.setPessoaCpf(this.criptografarCpf(pessoaCpf));
+
+                //Validar se já existem pessoas com o mesmo cpf
+                Pessoa pessoaEncontrada = pessoaRepository.findByPessoaCpf(objPessoa.getPessoaCpf());
+                if (pessoaEncontrada != null && pessoaEncontrada.getPessoaId() != pessoa.getPessoaId()) {
+                    throw new ValidationException("O cpf informado já existe!");
+                }
+
             }
 
             if (pessoa.getPessoaName() != null) {
@@ -126,18 +142,12 @@ public class PessoaService implements PessoaServiceInterface {
     }
 
     private String criptografarCpf(String pessoaCpf) {
-        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-        encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
-        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
-
-        return encryptor.encrypt(pessoaCpf.replaceAll("[^\\d ]", ""));
+        String originalInput = pessoaCpf.replaceAll("[^\\d ]", "");
+        return Base64.getEncoder().encodeToString(originalInput.getBytes());
     }
 
     public String descriptografarCpf(String pessoaCpf) {
-        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-        encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
-        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
-
-        return encryptor.decrypt(pessoaCpf);
+        byte[] decodedBytes = Base64.getDecoder().decode(pessoaCpf);
+        return new String(decodedBytes);
     }
 }

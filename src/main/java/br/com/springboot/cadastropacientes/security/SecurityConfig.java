@@ -56,13 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .headers().frameOptions().disable();
 
         http.csrf().disable().authorizeRequests()
+                .antMatchers("/oauth/token").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/enfermeiro").hasRole("MEDICO")
                 .antMatchers(HttpMethod.GET, "/api/paciente").hasRole("MEDICO")
                 .antMatchers(HttpMethod.GET, "/api/paciente").hasRole("ENFERMEIRO")
-//                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .anyRequest().denyAll()
 //                .and().formLogin().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
     }
 
     @Override
@@ -73,6 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // TODO Auto-generated method stub
-        super.configure(web);
+        //super.configure(web);
     }
 }

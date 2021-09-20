@@ -10,14 +10,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -71,9 +74,35 @@ public class Usuario implements Serializable, UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "perfil_name", nullable = false)})
     private Collection<Perfil> perfil;
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+//        list.add(new SimpleGrantedAuthority("ROLE_" + this.perfil));
+//        return list;
+//    }
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//
+//        this.perfil.forEach(
+//                cadaPerfil -> authorities.add(
+//                        new SimpleGrantedAuthority(cadaPerfil.getPerfilName())
+//                )
+//        );
+//
+//        return authorities;
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.perfil;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        this.perfil.forEach(
+            perfilItem -> authorities.add(
+                new SimpleGrantedAuthority(perfilItem.getPerfilName())
+            )
+        );
+        return authorities;
     }
 
     @Override

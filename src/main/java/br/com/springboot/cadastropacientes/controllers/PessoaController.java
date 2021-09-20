@@ -35,7 +35,7 @@ public class PessoaController extends AbstractController {
         try {
             pessoas = pessoaService.getAll();
         } catch (RuntimeException ex){
-            return Retorno.generateResponse("Não foi possível listar os pessoas! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
+            return Retorno.generateResponse("Não foi possível listar as pessoas! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }
 
         return Retorno.generateResponse("Sucesso ao buscar a pessoa", HttpStatus.OK, pessoas);
@@ -63,9 +63,9 @@ public class PessoaController extends AbstractController {
         try {
             objPessoa = pessoaService.save(pessoa);
         } catch (RuntimeException ex) {
-            return Retorno.generateResponse("Não foi possível salvar a pessoa! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
+            return Retorno.generateResponse("Não foi possível salvar a pessoa! Por favor tente novamente. " + ex.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
-        return Retorno.generateResponse("Pessoa criado com sucesso!", HttpStatus.OK, objPessoa);
+        return Retorno.generateResponse("Pessoa criada com sucesso!", HttpStatus.OK, objPessoa);
     }
 
     @PutMapping("")
@@ -79,9 +79,9 @@ public class PessoaController extends AbstractController {
 
             pessoaService.edit(objPessoa, pessoa);
         } catch (Exception ex) {
-            return Retorno.generateResponse("Não foi possível alterar a pessoa! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
+            return Retorno.generateResponse("Não foi possível alterar a pessoa! Por favor tente novamente. " + ex.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
-        return Retorno.generateResponse("Pessoa editado com sucesso!", HttpStatus.OK, pessoa);
+        return Retorno.generateResponse("Pessoa editada com sucesso!", HttpStatus.OK, pessoa);
     }
 
     @DeleteMapping("/{pessoaId}")
@@ -100,6 +100,6 @@ public class PessoaController extends AbstractController {
 
         }
 
-        return Retorno.generateResponse("Pessoa removido com sucesso!", HttpStatus.OK, objPessoa);
+        return Retorno.generateResponse("Pessoa removida com sucesso!", HttpStatus.OK, objPessoa);
     }
 }

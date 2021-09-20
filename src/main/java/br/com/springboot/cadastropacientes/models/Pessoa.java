@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
+import org.hibernate.validator.constraints.br.CPF;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -32,7 +33,8 @@ import java.util.Date;
 public class Pessoa implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "pessoa_id", nullable = false)
     private Long pessoaId;
 
@@ -41,7 +43,7 @@ public class Pessoa implements Serializable{
     @NotBlank(message = "O nome é obrigatório!")
     private String pessoaName;
 
-    @Column(name = "pessoa_cpf",unique = true, length = 255, nullable = false)
+    @Column(name = "pessoa_cpf", unique = true, length = 255, nullable = false)
     @NotBlank(message = "O CPF é obrigatório!")
     private String pessoaCpf;
 
@@ -64,18 +66,15 @@ public class Pessoa implements Serializable{
     private Date pessoaDataAlteracao;
 
 
-    public String getPessoaCpf() {
-        try {
-            StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-            encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
-            encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
-            return encryptor.decrypt(this.pessoaCpf);
-        } catch (RuntimeException exception) {
-            return this.pessoaCpf;
-        }
-    }
+//    public String getPessoaCpf() {
+//        try {
+//            StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+//            encryptor.setPassword("9592f001-7c7a-4182-8aa5-04301cc41f9b");
+////            encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
+//            return encryptor.decrypt(this.pessoaCpf);
+//        } catch (RuntimeException exception) {
+//            return this.pessoaCpf;
+//        }
+//    }
 
-    public String getPessoaCpfBase() {
-        return this.pessoaCpf;
-    }
 }
