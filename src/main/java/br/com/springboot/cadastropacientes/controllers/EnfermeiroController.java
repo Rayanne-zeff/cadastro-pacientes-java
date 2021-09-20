@@ -87,7 +87,7 @@ public class EnfermeiroController extends AbstractController {
      * @param Enfermeiro enfermeiro
      * @return ResponseEntity<Object>
      */
-    @PutMapping("")
+    @PutMapping("/{pessoaId}")
     public ResponseEntity<Object>  update(@Valid @RequestBody Enfermeiro enfermeiro){
         Enfermeiro objEnfermeiro = null;
         try{

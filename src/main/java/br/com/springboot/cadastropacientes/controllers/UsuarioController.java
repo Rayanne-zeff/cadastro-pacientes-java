@@ -89,7 +89,7 @@ public class UsuarioController extends AbstractController {
      * @param Usuario usuario
      * @return ResponseEntity<Object>
      */
-    @PutMapping("")
+    @PutMapping("/{usuarioId}")
     public ResponseEntity<Object>  update(@Valid @RequestBody Usuario usuario){
         Usuario objUsuario = null;
         try{

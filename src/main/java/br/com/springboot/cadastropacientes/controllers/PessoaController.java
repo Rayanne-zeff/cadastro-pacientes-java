@@ -88,7 +88,7 @@ public class PessoaController extends AbstractController {
      * @param Pessoa pessoa
      * @return ResponseEntity<Object>
      */
-    @PutMapping("")
+    @PutMapping("/{pessoaId}")
     public ResponseEntity<Object>  update(@Valid @RequestBody Pessoa pessoa){
         Pessoa objPessoa = null;
         try{

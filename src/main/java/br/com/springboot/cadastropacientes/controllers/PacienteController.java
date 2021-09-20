@@ -89,7 +89,7 @@ public class PacienteController extends AbstractController {
      * @param Paciente paciente
      * @return ResponseEntity<Object>
      */
-    @PutMapping("")
+    @PutMapping("/{pessoaId}")
     public ResponseEntity<Object>  update(@Valid @RequestBody Paciente paciente){
         Paciente objPaciente = null;
         try{

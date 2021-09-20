@@ -80,7 +80,7 @@ public class MedicoController extends AbstractController {
         } catch (RuntimeException ex) {
             return Retorno.generateResponse("Não foi possível salvar o medico! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }
-        return Retorno.generateResponse("Medico criado com sucesso!", HttpStatus.OK, objMedico);
+        return Retorno.generateResponse("Médico criado com sucesso!", HttpStatus.OK, objMedico);
     }
 
     /**
@@ -88,7 +88,7 @@ public class MedicoController extends AbstractController {
      * @param Medico medico
      * @return ResponseEntity<Object>
      */
-    @PutMapping("")
+    @PutMapping("/{pessoaId}")
     public ResponseEntity<Object>  update(@Valid @RequestBody Medico medico){
         Medico objMedico = null;
         try{
@@ -101,7 +101,7 @@ public class MedicoController extends AbstractController {
         } catch (Exception ex) {
             return Retorno.generateResponse("Não foi possível alterar o medico! Por favor tente novamente.", HttpStatus.BAD_REQUEST, null);
         }
-        return Retorno.generateResponse("Medico editado com sucesso!", HttpStatus.OK, medico);
+        return Retorno.generateResponse("Médico editado com sucesso!", HttpStatus.OK, medico);
     }
 
     /**
@@ -125,6 +125,6 @@ public class MedicoController extends AbstractController {
 
         }
 
-        return Retorno.generateResponse("Medico removido com sucesso!", HttpStatus.OK, objMedico);
+        return Retorno.generateResponse("Médico removido com sucesso!", HttpStatus.OK, objMedico);
     }
 }
