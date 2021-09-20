@@ -10,6 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 19/09/2021
+ */
+
 @Component
 @Transactional
 class ImplementsUserDetailsService implements UserDetailsService {

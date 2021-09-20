@@ -89,8 +89,14 @@ spring-boot:run
        <td>password</td>
       </tr>
     </table>
-
 <br>
+
+### Autenticação basic
+
+
+      username: 1a88d99d-43ef-4550-9cb7-033ef470a3b1
+
+      password: 3f030e70-db8d-492d-a2df-eb850f9fa715
 
 ### Pessoa
 1) LISTAR:

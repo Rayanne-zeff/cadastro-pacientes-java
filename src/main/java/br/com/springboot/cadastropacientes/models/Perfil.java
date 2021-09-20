@@ -8,6 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+/**
+ * @author : Gloria Rayane
+ * @since : 19/09/2021
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor
