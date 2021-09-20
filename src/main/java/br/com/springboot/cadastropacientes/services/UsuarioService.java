@@ -10,6 +10,7 @@ import br.com.springboot.cadastropacientes.servicesInterface.PessoaServiceInterf
 import br.com.springboot.cadastropacientes.servicesInterface.UsuarioServiceInterface;
 import javassist.NotFoundException;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -61,6 +62,8 @@ public class UsuarioService implements UsuarioServiceInterface {
 
             usuario.setPessoa(pessoa);
 
+            usuario.setUsuarioSenha(new BCryptPasswordEncoder().encode(usuario.getUsuarioSenha()));
+
             this.entityManager.getTransaction().begin();
             this.entityManager.persist(usuario);
             this.entityManager.flush();
@@ -84,7 +87,7 @@ public class UsuarioService implements UsuarioServiceInterface {
             }
 
             if (usuario.getUsuarioSenha() != null) {
-                objUsuario.setUsuarioSenha(usuario.getUsuarioSenha());
+                objUsuario.setUsuarioSenha(new BCryptPasswordEncoder().encode(usuario.getUsuarioSenha()));
             }
 
 

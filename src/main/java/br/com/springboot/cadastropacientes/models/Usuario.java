@@ -7,13 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -28,7 +31,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,5 +64,45 @@ public class Usuario {
     private Date usuarioDataAlteracao;
 
 
+    @NotEmpty(message = "Perfil do usuário não pode ser vazio!")
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "usuario_perfil",
+            joinColumns = {@JoinColumn(name = "usuario_perfil", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "perfil_name", nullable = false)})
+    private Collection<Perfil> perfil;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.perfil;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.usuarioSenha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.usuarioLogin;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
