@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
+ * Interface responsável por realizar a busca e persistência dos dados
  * @author : Gloria Rayane
  * @since : 17/09/2021
  */
