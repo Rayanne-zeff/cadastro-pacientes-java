@@ -43,7 +43,7 @@ public class PessoaService implements PessoaServiceInterface {
      * @param EnfermeiroService enfermeiroService
      */
     public PessoaService(EntityManagerFactory entityManagerFactory, PessoaRepository pessoaRepository, MedicoService medicoService, PacienteService pacienteService, EnfermeiroService enfermeiroService) {
-        this.entityManager = entityManagerFactory.createEntityManager();;
+        this.entityManager = entityManagerFactory.createEntityManager();
         this.pessoaRepository = pessoaRepository;
         this.medicoService = medicoService;
         this.pacienteService = pacienteService;
